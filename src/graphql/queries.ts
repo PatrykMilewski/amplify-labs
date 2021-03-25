@@ -9,6 +9,7 @@ export const getTask = /* GraphQL */ `
       title
       description
       status
+      listOfTasksID
       createdAt
       updatedAt
     }
@@ -26,6 +27,7 @@ export const listTasks = /* GraphQL */ `
         title
         description
         status
+        listOfTasksID
         createdAt
         updatedAt
       }
@@ -57,6 +59,48 @@ export const listPrivateNotes = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getListOfTasks = /* GraphQL */ `
+  query GetListOfTasks($id: ID!) {
+    getListOfTasks(id: $id) {
+      id
+      title
+      tasks {
+        items {
+          id
+          title
+          description
+          status
+          listOfTasksID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listListOfTaskss = /* GraphQL */ `
+  query ListListOfTaskss(
+    $filter: ModelListOfTasksFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listListOfTaskss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        tasks {
+          nextToken
+        }
+        createdAt
+        updatedAt
       }
       nextToken
     }

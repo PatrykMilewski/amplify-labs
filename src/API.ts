@@ -7,12 +7,14 @@ export type CreateTaskInput = {
   title: string,
   description?: string | null,
   status?: string | null,
+  listOfTasksID?: string | null,
 };
 
 export type ModelTaskConditionInput = {
   title?: ModelStringInput | null,
   description?: ModelStringInput | null,
   status?: ModelStringInput | null,
+  listOfTasksID?: ModelIDInput | null,
   and?: Array< ModelTaskConditionInput | null > | null,
   or?: Array< ModelTaskConditionInput | null > | null,
   not?: ModelTaskConditionInput | null,
@@ -58,12 +60,29 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
 export type Task = {
   __typename: "Task",
   id?: string,
   title?: string,
   description?: string | null,
   status?: string | null,
+  listOfTasksID?: string | null,
   createdAt?: string,
   updatedAt?: string,
 };
@@ -73,6 +92,7 @@ export type UpdateTaskInput = {
   title?: string | null,
   description?: string | null,
   status?: string | null,
+  listOfTasksID?: string | null,
 };
 
 export type DeleteTaskInput = {
@@ -109,36 +129,51 @@ export type DeletePrivateNoteInput = {
   id?: string | null,
 };
 
-export type ModelTaskFilterInput = {
-  id?: ModelIDInput | null,
-  title?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  status?: ModelStringInput | null,
-  and?: Array< ModelTaskFilterInput | null > | null,
-  or?: Array< ModelTaskFilterInput | null > | null,
-  not?: ModelTaskFilterInput | null,
+export type CreateListOfTasksInput = {
+  id?: string | null,
+  title: string,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
+export type ModelListOfTasksConditionInput = {
+  title?: ModelStringInput | null,
+  and?: Array< ModelListOfTasksConditionInput | null > | null,
+  or?: Array< ModelListOfTasksConditionInput | null > | null,
+  not?: ModelListOfTasksConditionInput | null,
+};
+
+export type ListOfTasks = {
+  __typename: "ListOfTasks",
+  id?: string,
+  title?: string,
+  tasks?: ModelTaskConnection,
+  createdAt?: string,
+  updatedAt?: string,
 };
 
 export type ModelTaskConnection = {
   __typename: "ModelTaskConnection",
   items?:  Array<Task | null > | null,
   nextToken?: string | null,
+};
+
+export type UpdateListOfTasksInput = {
+  id: string,
+  title?: string | null,
+};
+
+export type DeleteListOfTasksInput = {
+  id?: string | null,
+};
+
+export type ModelTaskFilterInput = {
+  id?: ModelIDInput | null,
+  title?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  status?: ModelStringInput | null,
+  listOfTasksID?: ModelIDInput | null,
+  and?: Array< ModelTaskFilterInput | null > | null,
+  or?: Array< ModelTaskFilterInput | null > | null,
+  not?: ModelTaskFilterInput | null,
 };
 
 export type ModelPrivateNoteFilterInput = {
@@ -155,6 +190,20 @@ export type ModelPrivateNoteConnection = {
   nextToken?: string | null,
 };
 
+export type ModelListOfTasksFilterInput = {
+  id?: ModelIDInput | null,
+  title?: ModelStringInput | null,
+  and?: Array< ModelListOfTasksFilterInput | null > | null,
+  or?: Array< ModelListOfTasksFilterInput | null > | null,
+  not?: ModelListOfTasksFilterInput | null,
+};
+
+export type ModelListOfTasksConnection = {
+  __typename: "ModelListOfTasksConnection",
+  items?:  Array<ListOfTasks | null > | null,
+  nextToken?: string | null,
+};
+
 export type CreateTaskMutationVariables = {
   input?: CreateTaskInput,
   condition?: ModelTaskConditionInput | null,
@@ -167,6 +216,7 @@ export type CreateTaskMutation = {
     title: string,
     description?: string | null,
     status?: string | null,
+    listOfTasksID?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -184,6 +234,7 @@ export type UpdateTaskMutation = {
     title: string,
     description?: string | null,
     status?: string | null,
+    listOfTasksID?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -201,6 +252,7 @@ export type DeleteTaskMutation = {
     title: string,
     description?: string | null,
     status?: string | null,
+    listOfTasksID?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -254,6 +306,93 @@ export type DeletePrivateNoteMutation = {
   } | null,
 };
 
+export type CreateListOfTasksMutationVariables = {
+  input?: CreateListOfTasksInput,
+  condition?: ModelListOfTasksConditionInput | null,
+};
+
+export type CreateListOfTasksMutation = {
+  createListOfTasks?:  {
+    __typename: "ListOfTasks",
+    id: string,
+    title: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
+      items?:  Array< {
+        __typename: "Task",
+        id: string,
+        title: string,
+        description?: string | null,
+        status?: string | null,
+        listOfTasksID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateListOfTasksMutationVariables = {
+  input?: UpdateListOfTasksInput,
+  condition?: ModelListOfTasksConditionInput | null,
+};
+
+export type UpdateListOfTasksMutation = {
+  updateListOfTasks?:  {
+    __typename: "ListOfTasks",
+    id: string,
+    title: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
+      items?:  Array< {
+        __typename: "Task",
+        id: string,
+        title: string,
+        description?: string | null,
+        status?: string | null,
+        listOfTasksID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteListOfTasksMutationVariables = {
+  input?: DeleteListOfTasksInput,
+  condition?: ModelListOfTasksConditionInput | null,
+};
+
+export type DeleteListOfTasksMutation = {
+  deleteListOfTasks?:  {
+    __typename: "ListOfTasks",
+    id: string,
+    title: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
+      items?:  Array< {
+        __typename: "Task",
+        id: string,
+        title: string,
+        description?: string | null,
+        status?: string | null,
+        listOfTasksID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetTaskQueryVariables = {
   id?: string,
 };
@@ -265,6 +404,7 @@ export type GetTaskQuery = {
     title: string,
     description?: string | null,
     status?: string | null,
+    listOfTasksID?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -285,6 +425,7 @@ export type ListTasksQuery = {
       title: string,
       description?: string | null,
       status?: string | null,
+      listOfTasksID?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -328,6 +469,58 @@ export type ListPrivateNotesQuery = {
   } | null,
 };
 
+export type GetListOfTasksQueryVariables = {
+  id?: string,
+};
+
+export type GetListOfTasksQuery = {
+  getListOfTasks?:  {
+    __typename: "ListOfTasks",
+    id: string,
+    title: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
+      items?:  Array< {
+        __typename: "Task",
+        id: string,
+        title: string,
+        description?: string | null,
+        status?: string | null,
+        listOfTasksID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListListOfTaskssQueryVariables = {
+  filter?: ModelListOfTasksFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListListOfTaskssQuery = {
+  listListOfTaskss?:  {
+    __typename: "ModelListOfTasksConnection",
+    items?:  Array< {
+      __typename: "ListOfTasks",
+      id: string,
+      title: string,
+      tasks?:  {
+        __typename: "ModelTaskConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type OnCreateTaskSubscription = {
   onCreateTask?:  {
     __typename: "Task",
@@ -335,6 +528,7 @@ export type OnCreateTaskSubscription = {
     title: string,
     description?: string | null,
     status?: string | null,
+    listOfTasksID?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -347,6 +541,7 @@ export type OnUpdateTaskSubscription = {
     title: string,
     description?: string | null,
     status?: string | null,
+    listOfTasksID?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -359,6 +554,7 @@ export type OnDeleteTaskSubscription = {
     title: string,
     description?: string | null,
     status?: string | null,
+    listOfTasksID?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -406,5 +602,77 @@ export type OnDeletePrivateNoteSubscription = {
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
+  } | null,
+};
+
+export type OnCreateListOfTasksSubscription = {
+  onCreateListOfTasks?:  {
+    __typename: "ListOfTasks",
+    id: string,
+    title: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
+      items?:  Array< {
+        __typename: "Task",
+        id: string,
+        title: string,
+        description?: string | null,
+        status?: string | null,
+        listOfTasksID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateListOfTasksSubscription = {
+  onUpdateListOfTasks?:  {
+    __typename: "ListOfTasks",
+    id: string,
+    title: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
+      items?:  Array< {
+        __typename: "Task",
+        id: string,
+        title: string,
+        description?: string | null,
+        status?: string | null,
+        listOfTasksID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteListOfTasksSubscription = {
+  onDeleteListOfTasks?:  {
+    __typename: "ListOfTasks",
+    id: string,
+    title: string,
+    tasks?:  {
+      __typename: "ModelTaskConnection",
+      items?:  Array< {
+        __typename: "Task",
+        id: string,
+        title: string,
+        description?: string | null,
+        status?: string | null,
+        listOfTasksID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null > | null,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };

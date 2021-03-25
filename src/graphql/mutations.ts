@@ -12,6 +12,7 @@ export const createTask = /* GraphQL */ `
       title
       description
       status
+      listOfTasksID
       createdAt
       updatedAt
     }
@@ -27,6 +28,7 @@ export const updateTask = /* GraphQL */ `
       title
       description
       status
+      listOfTasksID
       createdAt
       updatedAt
     }
@@ -42,6 +44,7 @@ export const deleteTask = /* GraphQL */ `
       title
       description
       status
+      listOfTasksID
       createdAt
       updatedAt
     }
@@ -86,6 +89,81 @@ export const deletePrivateNote = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+    }
+  }
+`;
+export const createListOfTasks = /* GraphQL */ `
+  mutation CreateListOfTasks(
+    $input: CreateListOfTasksInput!
+    $condition: ModelListOfTasksConditionInput
+  ) {
+    createListOfTasks(input: $input, condition: $condition) {
+      id
+      title
+      tasks {
+        items {
+          id
+          title
+          description
+          status
+          listOfTasksID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateListOfTasks = /* GraphQL */ `
+  mutation UpdateListOfTasks(
+    $input: UpdateListOfTasksInput!
+    $condition: ModelListOfTasksConditionInput
+  ) {
+    updateListOfTasks(input: $input, condition: $condition) {
+      id
+      title
+      tasks {
+        items {
+          id
+          title
+          description
+          status
+          listOfTasksID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteListOfTasks = /* GraphQL */ `
+  mutation DeleteListOfTasks(
+    $input: DeleteListOfTasksInput!
+    $condition: ModelListOfTasksConditionInput
+  ) {
+    deleteListOfTasks(input: $input, condition: $condition) {
+      id
+      title
+      tasks {
+        items {
+          id
+          title
+          description
+          status
+          listOfTasksID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

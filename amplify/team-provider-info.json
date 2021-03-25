@@ -16,5 +16,24 @@
         "amplifylabsa9365f70": {}
       }
     }
+  },
+  "patryk": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifylabs-patryk-211316-authRole",
+      "UnauthRoleArn": "arn:aws:iam::059253500667:role/amplify-amplifylabs-patryk-211316-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::059253500667:role/amplify-amplifylabs-patryk-211316-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-amplifylabs-patryk-211316-deployment",
+      "UnauthRoleName": "amplify-amplifylabs-patryk-211316-unauthRole",
+      "StackName": "amplify-amplifylabs-patryk-211316",
+      "StackId": "arn:aws:cloudformation:eu-west-1:059253500667:stack/amplify-amplifylabs-patryk-211316/8afa0220-8da6-11eb-9ed4-060a1b1e8271",
+      "AmplifyAppId": "d3re6xukt6ln9l"
+    },
+    "categories": {
+      "auth": {
+        "amplifylabsa9365f70": {},
+        "userPoolGroups": {}
+      }
+    }
   }
 }

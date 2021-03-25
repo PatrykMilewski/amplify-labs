@@ -9,6 +9,7 @@ export const onCreateTask = /* GraphQL */ `
       title
       description
       status
+      listOfTasksID
       createdAt
       updatedAt
     }
@@ -21,6 +22,7 @@ export const onUpdateTask = /* GraphQL */ `
       title
       description
       status
+      listOfTasksID
       createdAt
       updatedAt
     }
@@ -33,6 +35,7 @@ export const onDeleteTask = /* GraphQL */ `
       title
       description
       status
+      listOfTasksID
       createdAt
       updatedAt
     }
@@ -68,6 +71,72 @@ export const onDeletePrivateNote = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+    }
+  }
+`;
+export const onCreateListOfTasks = /* GraphQL */ `
+  subscription OnCreateListOfTasks {
+    onCreateListOfTasks {
+      id
+      title
+      tasks {
+        items {
+          id
+          title
+          description
+          status
+          listOfTasksID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateListOfTasks = /* GraphQL */ `
+  subscription OnUpdateListOfTasks {
+    onUpdateListOfTasks {
+      id
+      title
+      tasks {
+        items {
+          id
+          title
+          description
+          status
+          listOfTasksID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteListOfTasks = /* GraphQL */ `
+  subscription OnDeleteListOfTasks {
+    onDeleteListOfTasks {
+      id
+      title
+      tasks {
+        items {
+          id
+          title
+          description
+          status
+          listOfTasksID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
